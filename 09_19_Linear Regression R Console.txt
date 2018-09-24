@@ -1,0 +1,462 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.70 (7543) x86_64-apple-darwin15.6.0]
+
+[Workspace restored from /Users/Laura/.RData]
+[History restored from /Users/Laura/.Rapp.history]
+
+> library(affy)
+Loading required package: BiocGenerics
+Loading required package: parallel
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, parApply, parCapply,
+    parLapply, parLapplyLB, parRapply, parSapply, parSapplyLB
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind,
+    colMeans, colnames, colSums, dirname, do.call,
+    duplicated, eval, evalq, Filter, Find, get, grep, grepl,
+    intersect, is.unsorted, lapply, lengths, Map, mapply,
+    match, mget, order, paste, pmax, pmax.int, pmin,
+    pmin.int, Position, rank, rbind, Reduce, rowMeans,
+    rownames, rowSums, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which, which.max, which.min
+
+Loading required package: Biobase
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages
+    'citation("pkgname")'.
+
+> setwd("C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen")
+Error in setwd("C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen") : 
+  cannot change working directory
+> targetsFile <- "estrogen.txt"
+> pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'estrogen.txt': No such file or directory
+> library(affy)
+> setwd("/Users/Laura/Downloads/Class-Exercise-1-master")
+> targetsFile <- "estrogen.txt"
+> pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'estrogen.txt': No such file or directory
+> library(affy)
+> > setwd("/Users/Laura/Desktop")
+Error: unexpected '>' in ">"
+> > targetsFile <- "estrogen.txt"
+Error: unexpected '>' in ">"
+> > pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+Error: unexpected '>' in ">"
+> 
+> /Users/Laura/Desktop
+Error: unexpected '/' in "/"
+> library(affy)
+> setwd("/Users/Laura/Desktop")
+> targetsFile <- "estrogen.txt"
+> pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'estrogen.txt': No such file or directory
+> library(affy)
+> > setwd("/Users/Laura/Desktop/Estrogen")
+Error: unexpected '>' in ">"
+> > targetsFile <- "estrogen.txt"
+Error: unexpected '>' in ">"
+> > pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+Error: unexpected '>' in ">"
+> library(affy)
+> setwd("/Users/Laura/Desktop/Estrogen")
+> targetsFile <- "estrogen.txt"
+> pd <- read.AnnotatedDataFrame(targetsFile,header=TRUE,sep="",row.names=1)
+> ER <- pData(pd)$estrogen
+> Time <- factor(pData(pd)$time.h)
+> design <- model.matrix(~ER+Time)
+> design
+  (Intercept) ERpresent Time48
+1           1         0      0
+2           1         0      0
+3           1         1      0
+4           1         1      0
+5           1         0      1
+6           1         0      1
+7           1         1      1
+8           1         1      1
+attr(,"assign")
+[1] 0 1 2
+attr(,"contrasts")
+attr(,"contrasts")$ER
+[1] "contr.treatment"
+
+attr(,"contrasts")$Time
+[1] "contr.treatment"
+
+> 
+> design2 <- model.matrix(~ER*Time)
+> design2
+  (Intercept) ERpresent Time48 ERpresent:Time48
+1           1         0      0                0
+2           1         0      0                0
+3           1         1      0                0
+4           1         1      0                0
+5           1         0      1                0
+6           1         0      1                0
+7           1         1      1                1
+8           1         1      1                1
+attr(,"assign")
+[1] 0 1 2 3
+attr(,"contrasts")
+attr(,"contrasts")$ER
+[1] "contr.treatment"
+
+attr(,"contrasts")$Time
+[1] "contr.treatment"
+
+> 
+> raw <-ReadAffy(celfile.path = "C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen", filenames=rownames(pData(pd)),phenoData = pd)
+Error: the following are not valid files:
+    C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/low10-1.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/low10-2.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/high10-1.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/high10-2.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/low48-1.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/low48-2.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/high48-1.cel
+   C:/Users/Bio-user/Documents/GitHub/Class-Exercise-1/estrogen/high48-2.cel
+> raw
+function (length = 0L) 
+.Internal(vector("raw", length))
+<bytecode: 0x7fe8e98b7b20>
+<environment: namespace:base>
+> raw <-ReadAffy(celfile.path = "/Users/Laura/Desktop/Estrogen", filenames=rownames(pData(pd)),phenoData = pd)
+> raw
+AffyBatch object
+size of arrays=640x640 features (21 kb)
+cdf=HG_U95Av2 (12625 affyids)
+number of samples=8
+number of genes=12625
+annotation=hgu95av2
+notes=
+Warning messages:
+1: replacing previous import ‘AnnotationDbi::tail’ by ‘utils::tail’ when loading ‘hgu95av2cdf’ 
+2: replacing previous import ‘AnnotationDbi::head’ by ‘utils::head’ when loading ‘hgu95av2cdf’ 
+> eset <- rma(raw)
+Background correcting
+Normalizing
+Calculating Expression
+> library(limma)
+
+Attaching package: ‘limma’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    plotMA
+
+> fit1 <- lmFit(eset, design)
+> fit1 <- eBayes(fit1)
+> topTable(fit1, coef=2)
+             logFC   AveExpr        t      P.Value    adj.P.Val
+910_at    3.484397  9.660238 23.45683 9.857528e-10 4.856645e-06
+41400_at  2.312275 10.041553 23.18878 1.097642e-09 4.856645e-06
+39755_at  1.722290 12.131839 23.06484 1.154054e-09 4.856645e-06
+40117_at  2.415755  9.676557 20.61439 3.292172e-09 1.039092e-05
+31798_at  3.198764 12.115778 18.59763 8.570374e-09 1.848386e-05
+1824_s_at 1.778002  9.238870 18.54821 8.784407e-09 1.848386e-05
+36134_at  2.466614  8.275734 17.51134 1.496103e-08 2.698329e-05
+1884_s_at 2.693047  9.034796 16.99701 1.970251e-08 3.084438e-05
+1854_at   2.924256  8.532099 16.79596 2.198807e-08 3.084438e-05
+673_at    1.476417  9.828894 15.24039 5.372461e-08 6.630068e-05
+                  B
+910_at    12.293257
+41400_at  12.214778
+39755_at  12.177991
+40117_at  11.379761
+31798_at  10.605992
+1824_s_at 10.585509
+36134_at  10.137159
+1884_s_at  9.900860
+1854_at    9.805830
+673_at     9.015793
+> fit2 <- lmFit(eset, design2)
+> 
+> fit2 <- eBayes(fit2)
+> topTable(fit2, coef=2)
+             logFC   AveExpr        t      P.Value    adj.P.Val        B
+39642_at  2.939428  7.876515 23.71715 4.741579e-09 3.128295e-05 9.966810
+910_at    3.113733  9.660238 23.59225 4.955715e-09 3.128295e-05 9.942522
+31798_at  2.800195 12.115778 16.38509 1.025747e-07 3.511070e-04 7.977290
+41400_at  2.381040 10.041553 16.22463 1.112418e-07 3.511070e-04 7.916921
+40117_at  2.555282  9.676557 15.68070 1.472942e-07 3.576234e-04 7.705093
+1854_at   2.507616  8.532099 15.15848 1.945518e-07 3.576234e-04 7.490766
+39755_at  1.679331 12.131839 15.06365 2.048314e-07 3.576234e-04 7.450643
+1824_s_at 1.914637  9.238870 14.87915 2.266129e-07 3.576234e-04 7.371475
+1126_s_at 1.782825  6.879918 13.83040 4.119252e-07 5.778395e-04 6.892307
+1536_at   2.662258  5.937222 13.26247 5.795111e-07 7.316327e-04 6.610486
+> source("https://bioconductor.org/biocLite.R")
+Bioconductor version 3.7 (BiocInstaller 1.30.0), ?biocLite for help
+> biocLite("genefilter")
+BioC_mirror: https://bioconductor.org
+Using Bioconductor 3.7 (BiocInstaller 1.30.0), R 3.5.1 (2018-07-02).
+Installing package(s) ‘genefilter’
+trying URL 'https://bioconductor.org/packages/3.7/bioc/bin/macosx/el-capitan/contrib/3.5/genefilter_1.62.0.tgz'
+Content type 'application/x-gzip' length 2117955 bytes (2.0 MB)
+==================================================
+downloaded 2.0 MB
+
+
+The downloaded binary packages are in
+	/var/folders/y8/f1hrsz096k3_ysysnbfbkwt00000gn/T//RtmpOfJXAq/downloaded_packages
+Old packages: 'digest'
+Update all/some/none? [a/s/n]: 
+a
+
+  There is a binary version available but the source version is later:
+       binary source needs_compilation
+digest 0.6.16 0.6.17              TRUE
+
+Do you want to install from sources the package which needs compilation? (Yes/no/cancel) library(genefilter)
+Error in askYesNo(msg) : Unrecognized response “library(genefilter)”
+> yes
+Error: object 'yes' not found
+> Yes
+Error: object 'Yes' not found
+> Do you want to install from sources the package which needs compilation? (Yes/no/cancel) 
+Error: unexpected symbol in "Do you"
+> tes
+Error: object 'tes' not found
+> Yes
+Error: object 'Yes' not found
+> library(genefilter)
+> library(GEOquery)
+Setting options('download.file.method.GEOquery'='auto')
+Setting options('GEOquery.inmemory.gpl'=FALSE)
+> library(limma)
+> url <- "ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE33nnn/GSE33126/matrix/GSE33126_series_matrix.txt.gz"
+> filenm <- "GSE33126_series_matrix.txt.gz"
+> if(!file.exists(filenm)) download.file(url, destfile=filenm)
+> gse <- getGEO(filename=filenm)
+Parsed with column specification:
+cols(
+  ID_REF = col_character(),
+  GSM820516 = col_double(),
+  GSM820517 = col_double(),
+  GSM820518 = col_double(),
+  GSM820519 = col_double(),
+  GSM820520 = col_double(),
+  GSM820521 = col_double(),
+  GSM820522 = col_double(),
+  GSM820523 = col_double(),
+  GSM820524 = col_double(),
+  GSM820525 = col_double(),
+  GSM820526 = col_double(),
+  GSM820527 = col_double(),
+  GSM820528 = col_double(),
+  GSM820529 = col_double(),
+  GSM820530 = col_double(),
+  GSM820531 = col_double(),
+  GSM820532 = col_double(),
+  GSM820533 = col_double()
+)
+|===============================================================================| 100%    8 MB
+File stored at: 
+/var/folders/y8/f1hrsz096k3_ysysnbfbkwt00000gn/T//RtmpOfJXAq/GPL6947.soft
+B
+> gse.expfilter <- varFilter(gse)
+> anno <- fData(gse.expfilter)
+> anno <- anno[,c("Symbol", "Entrez_Gene_ID", "Chromosome", "Cytoband",)]
+Error in c("Symbol", "Entrez_Gene_ID", "Chromosome", "Cytoband", ) : 
+  argument 5 is empty
+> nno <- anno[,c("Symbol", "Entrez_Gene_ID", "Chromosome", "Cytoband")]
+> fit2$genes <- anno
+> topTable(fit2)
+Removing intercept from test coefficients
+                          ID               nuID      Species Source  Search_Key  Transcript
+AFFX-CreX-5_at  ILMN_1769751 0nyEXG6A1SW514SZ_o Homo sapiens RefSeq    ILMN_761    ILMN_761
+AFFX-CreX-3_at  ILMN_1769721 6.ddRU2AUlFX1e5RQg Homo sapiens RefSeq   ILMN_3584   ILMN_3584
+910_at          ILMN_1768812 QgrTBiLqB0FSNWVde0 Homo sapiens RefSeq  ILMN_26508  ILMN_26508
+AFFX-BioDn-5_at ILMN_1769705 u9BHheK.SJkttrmeSg Homo sapiens RefSeq  ILMN_19743  ILMN_19743
+39642_at        ILMN_1740523 KUrvIuNNd6XF_ETndc Homo sapiens RefSeq  ILMN_29637  ILMN_29637
+AFFX-BioB-M_at  ILMN_1769637 0uTENpFUglVbSPV9S8 Homo sapiens RefSeq  ILMN_23400  ILMN_23400
+31798_at        ILMN_1666096 Tqi7yiSUoe7Lu7_vk0 Homo sapiens RefSeq    ILMN_416    ILMN_416
+1854_at         ILMN_1658746 69_7PS8OEUAp0lRVBU Homo sapiens RefSeq   ILMN_9196   ILMN_9196
+AFFX-BioC-3_at  ILMN_1769665 Kk8_4SUYFT5UQVdRXY Homo sapiens RefSeq   ILMN_1385 ILMN_176672
+AFFX-BioDn-3_at ILMN_1769702 xIp4p7rnhHnpj85J6U Homo sapiens RefSeq ILMN_138828   ILMN_6850
+                ILMN_Gene Source_Reference_ID      RefSeq_ID Unigene_ID Entrez_Gene_ID
+AFFX-CreX-5_at       PIGG         NM_017733.2    NM_017733.2                     54872
+AFFX-CreX-3_at        SP6         NM_199262.2    NM_199262.2                     80320
+910_at              FXYD6         NM_022003.1    NM_022003.1                     53826
+AFFX-BioDn-5_at LOC440093      NM_001013699.1 NM_001013699.1                    440093
+39642_at             KTN1         NM_182926.2    NM_182926.2                      3895
+AFFX-BioB-M_at       RNMT         NM_003799.1    NM_003799.1                      8731
+31798_at            ACSL3         NM_004457.3    NM_004457.3                      2181
+1854_at           PTPLAD1         NM_016395.2    NM_016395.2                     51495
+AFFX-BioC-3_at      RAB5C         NM_201434.1    NM_201434.1                      5878
+AFFX-BioDn-3_at     GPAA1         NM_003801.3    NM_003801.3                      8733
+                       GI      Accession    Symbol Protein_Product Array_Address_Id
+AFFX-CreX-5_at   31377753    NM_017733.2      PIGG     NP_060203.2          2940682
+AFFX-CreX-3_at   42490765    NM_199262.2       SP6     NP_954871.1          4180195
+910_at           11612654    NM_022003.1     FXYD6     NP_071286.1           160270
+AFFX-BioDn-5_at  61966848 NM_001013699.1 LOC440093  NP_001013721.1          3180541
+39642_at        118498360    NM_182926.2      KTN1     NP_891556.1          5080162
+AFFX-BioB-M_at    4506566    NM_003799.1      RNMT     NP_003790.1          4850176
+31798_at         42794751    NM_004457.3     ACSL3     NP_004448.2          3930593
+1854_at         117168247    NM_016395.2   PTPLAD1     NP_057479.2          6040048
+AFFX-BioC-3_at   41393613    NM_201434.1     RAB5C     NP_958842.1           450164
+AFFX-BioDn-3_at  83367079    NM_003801.3     GPAA1     NP_003792.1          2480288
+                Probe_Type Probe_Start                                           SEQUENCE
+AFFX-CreX-5_at           S        2712 GCTTAGACACCTACGTGGAAATCCCAGCCGTGCTCCTGACAGCGCTTGGG
+AFFX-CreX-3_at           S        3445 TTTCTCCTCCACCCATCGAAACCAGCCACCCCTTCCCTGTGCCACCAAGA
+910_at                   S        1507 GAAGGTCATAACGAGAGTGGGAACTCAACCCAGATCCCGCCCCTCCTGTC
+AFFX-BioDn-5_at          S         307 TTCAACACTGACCTGAGGTTTCAGAGCGCAGTCGTCGGTGCGCTGCAGGA
+39642_at                 S        4361 CCAGGTGTTAGAGTGATCATCCTCTGGCCTACCTTGACACATGCTCTCCT
+AFFX-BioB-M_at           S        5930 GTGCATACAATCGGCACCCCAGAAGCCCCCCGTCAGATTCCCTTCCAGTT
+31798_at                 A        4102 GGGGAGTGTTAGGAGCAGCCAGGACTGTGTAGTGTGTGTTTGGTTGCATC
+1854_at                  I        1450 TTCTTGTGTATTCAGTTAATGACACCAAAAGGCTCAGCCCACCCCAACCC
+AFFX-BioC-3_at           A        1534 GCATTATTGTGACAGCCACGAACCCATTGCCCACAACCCCTCCACCCTCG
+AFFX-BioDn-3_at          S        1487 AGAGGCTGAGGCTGTGGTGCTGACACTGCTGGCGATTTATGCAGCTGGCC
+                Chromosome Probe_Chr_Orientation
+AFFX-CreX-5_at           4                     +
+AFFX-CreX-3_at          17                     -
+910_at                  11                     -
+AFFX-BioDn-5_at         12                     -
+39642_at                14                     +
+AFFX-BioB-M_at          18                     +
+31798_at                 2                     +
+1854_at                 15                     +
+AFFX-BioC-3_at          17                     -
+AFFX-BioDn-3_at          8                     +
+                                                    Probe_Coordinates  Cytoband
+AFFX-CreX-5_at                                          498888-498937   4p16.3d
+AFFX-CreX-3_at                                      43277578-43277627 17q21.32b
+910_at                                            113641643-113641692  11q23.3c
+AFFX-BioDn-5_at                                     31836086-31836135 12p11.21b
+39642_at        55216146-55216156:55217157-55217161:55217162-55217195  14q22.3b
+AFFX-BioB-M_at                                      13754281-13754330 18p11.21c
+31798_at                                          223516104-223516153   2q36.1c
+1854_at                                             42693152-42693201 15q22.31b
+AFFX-BioC-3_at                                      37530711-37530760  17q21.2b
+AFFX-BioDn-3_at                                   140416210-140416259   8q24.3g
+                                                                                                          Definition
+AFFX-CreX-5_at                   Homo sapiens phosphatidylinositol glycan anchor biosynthesis, class G (PIGG), mRNA.
+AFFX-CreX-3_at                                                    Homo sapiens Sp6 transcription factor (SP6), mRNA.
+910_at                                  Homo sapiens FXYD domain containing ion transport regulator 6 (FXYD6), mRNA.
+AFFX-BioDn-5_at                                                      Homo sapiens histone H3-like (LOC440093), mRNA.
+39642_at                              Homo sapiens kinectin 1 (kinesin receptor) (KTN1), transcript variant 1, mRNA.
+AFFX-BioB-M_at                                         Homo sapiens RNA (guanine-7-) methyltransferase (RNMT), mRNA.
+31798_at            Homo sapiens acyl-CoA synthetase long-chain family member 3 (ACSL3), transcript variant 1, mRNA.
+1854_at                        Homo sapiens protein tyrosine phosphatase-like A domain containing 1 (PTPLAD1), mRNA.
+AFFX-BioC-3_at                   Homo sapiens RAB5C, member RAS oncogene family (RAB5C), transcript variant 1, mRNA.
+AFFX-BioDn-3_at Homo sapiens glycosylphosphatidylinositol anchor attachment protein 1 homolog (yeast) (GPAA1), mRNA.
+                                                                                                                                                                                                                   Ontology_Component
+AFFX-CreX-5_at                                                               integral to membrane [goid 16021] [evidence IEA]; membrane [goid 16020] [evidence IEA]; endoplasmic reticulum [goid 5783] [pmid 15632136] [evidence IDA]
+AFFX-CreX-3_at                                                                                                                                           nucleus [goid 5634] [evidence IEA]; intracellular [goid 5622] [evidence IEA]
+910_at                                                                   plasma membrane [goid 5886] [pmid 11256614] [evidence IDA]; integral to membrane [goid 16021] [evidence ISS]; extracellular space [goid 5615] [evidence ISS]
+AFFX-BioDn-5_at                                                                                                       chromosome [goid 5694] [evidence IEA]; nucleus [goid 5634] [evidence IEA]; nucleosome [goid 786] [evidence IEA]
+39642_at           membrane [goid 16020] [evidence IEA]; integral to membrane [goid 16021] [evidence IEA]; endoplasmic reticulum [goid 5783] [evidence IEA]; endoplasmic reticulum membrane [goid 5789] [pmid 7787243] [evidence ISS]
+AFFX-BioB-M_at                                                                                                                                                                      nucleus [goid 5634] [pmid 9705270] [evidence TAS]
+31798_at                                                                                                membrane [goid 16020] [evidence IEA]; peroxisome [goid 5777] [evidence IEA]; integral to membrane [goid 16021] [evidence IEA]
+1854_at                                                                                                                                                                                                                              
+AFFX-BioC-3_at                                                                                                                                                                                                                       
+AFFX-BioDn-3_at GPI-anchor transamidase complex [goid 42765] [pmid 15713669] [evidence TAS]; integral to membrane [goid 16021] [evidence IEA]; membrane [goid 16020] [evidence IEA]; endoplasmic reticulum [goid 5783] [evidence IEA]
+                                                                                                                                                                                                                        Ontology_Process
+AFFX-CreX-5_at                                                                                                                 GPI anchor biosynthesis [goid 6506] [pmid 15632136] [evidence IDA]; metabolism [goid 8152] [evidence IEA]
+AFFX-CreX-3_at                                                                                                           regulation of transcription, DNA-dependent [goid 6355] [evidence IEA]; transcription [goid 6350] [evidence IEA]
+910_at                                                                                                                                                                                          ion transport [goid 6811] [evidence IEA]
+AFFX-BioDn-5_at                                                                                      nucleosome assembly [goid 6334] [evidence IEA]; chromosome organization and biogenesis (sensu Eukaryota) [goid 7001] [evidence IEA]
+39642_at                                                                                                                                                            microtubule-based movement [goid 7018] [pmid 7787243] [evidence ISS]
+AFFX-BioB-M_at                                                                                                                                                                    mRNA capping [goid 6370] [pmid 9705270] [evidence TAS]
+31798_at                                                                                            metabolism [goid 8152] [evidence IEA]; lipid metabolism [goid 6629] [evidence IEA]; fatty acid metabolism [goid 6631] [evidence IEA]
+1854_at                                                               small GTPase mediated signal transduction [goid 7264] [pmid 10747961] [evidence TAS]; I-kappaB kinase/NF-kappaB cascade [goid 7249] [pmid 10747961] [evidence TAS]
+AFFX-BioC-3_at                                                                                                       small GTPase mediated signal transduction [goid 7264] [evidence IEA]; protein transport [goid 15031] [evidence IEA]
+AFFX-BioDn-3_at protein retention in ER [goid 6621] [pmid 12052837] [evidence NAS]; attachment of GPI anchor to protein [goid 16255] [pmid 11483512] [evidence TAS]; protein complex assembly [goid 6461] [pmid 14660601] [evidence NAS]
+                                                                                                                                                                                                                                                                           Ontology_Function
+AFFX-CreX-5_at  transferase activity [goid 16740] [evidence IEA]; CP2 mannose-ethanolamine phosphotransferase activity [goid 51267] [pmid 15632136] [evidence IDA]; sulfuric ester hydrolase activity [goid 8484] [evidence IEA]; protein binding [goid 5515] [pmid 15632136] [evidence IDA]
+AFFX-CreX-3_at                                                                                                                                            zinc ion binding [goid 8270] [evidence IEA]; metal ion binding [goid 46872] [evidence IEA]; DNA binding [goid 3677] [evidence IEA]
+910_at                                                                                                                                                                                                                                       ion channel activity [goid 5216] [evidence IEA]
+AFFX-BioDn-5_at                                                                                                                                                                                                                                       DNA binding [goid 3677] [evidence IEA]
+39642_at                                                                                                                                                                                                                                                                                    
+AFFX-BioB-M_at                       transferase activity [goid 16740] [evidence IEA]; methyltransferase activity [goid 8168] [evidence IEA]; RNA binding [goid 3723] [pmid 9705270] [evidence TAS]; mRNA (guanine-N7-)-methyltransferase activity [goid 4482] [pmid 9705270] [evidence TAS]
+31798_at                                      ligase activity [goid 16874] [evidence IEA]; magnesium ion binding [goid 287] [evidence IEA]; fatty-acyl-CoA synthase activity [goid 4321] [pmid 8663269] [evidence TAS]; long-chain-fatty-acid-CoA ligase activity [goid 4467] [evidence IEA]
+1854_at                                                                                                                                                                                                                 GTPase activator activity [goid 5096] [pmid 10747961] [evidence TAS]
+AFFX-BioC-3_at                                                                                                                               GTP binding [goid 5525] [evidence IEA]; GTPase activity [goid 3924] [pmid 8646882] [evidence TAS]; nucleotide binding [goid 166] [evidence IEA]
+AFFX-BioDn-3_at          tubulin binding [goid 15631] [pmid 12052837] [evidence NAS]; GPI anchor binding [goid 48503] [pmid 14660601] [evidence IMP]; GPI-anchor transamidase activity [goid 3923] [pmid 9468317] [evidence NAS]; protein binding [goid 5515] [pmid 15713669] [evidence IPI]
+                                                                     Synonyms
+AFFX-CreX-5_at  RLGS1930; PRO4405; GPI7; MGC131903; LAS21; FLJ20265; FLJ39925
+AFFX-CreX-3_at        MGC119664; KLF14; EPFN; MGC119665; MGC119663; MGC119662
+910_at                                                                       
+AFFX-BioDn-5_at                                                              
+39642_at                          KIAA0004; MGC133337; MU-RMS-40.19; CG1; KNT
+AFFX-BioB-M_at                   RG7MT1; KIAA0398; MET; hCMT1c; DKFZp686H1252
+31798_at                                                 PRO2194; FACL3; ACS3
+1854_at                                             B-IND1; HSPC121; FLJ90376
+AFFX-BioC-3_at                             RAB5CL; RABL; MGC138857; MGC117217
+AFFX-BioDn-3_at                                                   hGAA1; GAA1
+                                                            Obsolete_Probe_Id         GB_ACC
+AFFX-CreX-5_at  RLGS1930; PRO4405; GPI7; MGC131903; LAS21; FLJ20265; FLJ39925    NM_017733.2
+AFFX-CreX-3_at              MGC119664; KLF14; MGC119665; MGC119663; MGC119662    NM_199262.2
+910_at                                                                           NM_022003.1
+AFFX-BioDn-5_at                                                               NM_001013699.1
+39642_at                                     KIAA0004; MU-RMS-40.19; CG1; KNT    NM_182926.2
+AFFX-BioB-M_at                   RG7MT1; KIAA0398; hCMT1c; DKFZp686H1252; MET    NM_003799.1
+31798_at                                                 PRO2194; FACL3; ACS3    NM_004457.3
+1854_at                                                       B-IND1; HSPC121    NM_016395.2
+AFFX-BioC-3_at                                        RAB5CL; RABL; MGC117217    NM_201434.1
+AFFX-BioDn-3_at                                                   hGAA1; GAA1    NM_003801.3
+                ERpresent     Time48 ERpresent.Time48   AveExpr        F      P.Value
+AFFX-CreX-5_at  0.4182119 -6.8261512       -0.6831324  9.921026 793.1744 1.034429e-10
+AFFX-CreX-3_at  0.2491519 -6.5263239       -0.4882227 10.406343 716.6705 1.587465e-10
+910_at          3.1137325 -1.3337104        0.7413289  9.660238 505.4195 6.925703e-10
+AFFX-BioDn-5_at 0.3947598 -3.7347813       -0.6722857  8.348424 292.6684 6.892472e-09
+39642_at        2.9394277 -0.2565076       -1.3249824  7.876515 280.7185 8.209516e-09
+AFFX-BioB-M_at  0.2507792 -3.4083604       -0.3861584  8.270105 249.6095 1.343059e-08
+31798_at        2.8001945  0.1394019        0.7971393 12.115778 243.7899 1.482506e-08
+1854_at         2.5076158 -0.7934590        0.8332806  8.532099 216.0068 2.459404e-08
+AFFX-BioC-3_at  0.4240489 -2.9866527       -1.0952219  8.159920 185.4875 4.645530e-08
+AFFX-BioDn-3_at 0.1733272 -2.4857967       -0.3398384 11.401080 184.1583 4.786964e-08
+                   adj.P.Val
+AFFX-CreX-5_at  1.002087e-06
+AFFX-CreX-3_at  1.002087e-06
+910_at          2.914567e-06
+AFFX-BioDn-5_at 2.072903e-05
+39642_at        2.072903e-05
+AFFX-BioB-M_at  2.673805e-05
+31798_at        2.673805e-05
+1854_at         3.881247e-05
+AFFX-BioC-3_at  6.043542e-05
+AFFX-BioDn-3_at 6.043542e-05
+> volcanoplot(fit2, coef = 1L, style = "p-value", highlight = 0, names = fit$genes$ID, xlab = "Log2 Fold Change", ylab=NULL, pch=16, cex=0.35)
+> 
